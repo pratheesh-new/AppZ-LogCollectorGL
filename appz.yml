@@ -1,0 +1,29 @@
+app:
+  name: LogCollectorGL
+  code: LCGL
+  notify: pprasannan@cloudbourne.co
+build:
+  version: 2.9
+  env: DEV
+  build_file: none
+  output_files: output/*.zip
+  image_template: graylog-3.0
+  image_name: nutanix/log-collector-gl
+deploy:
+  context: nutanix/DEV
+  replicas: 1
+  port:
+  - 9000
+  - 12201
+volumes:
+- claim: graylog-data
+  mount: /usr/share/graylog/data/journal
+  name: data
+monitor:
+  notify: pprasannan@cloudbourne.co      
+properties:
+  revision : 21
+  GRAYLOG_MONGODB_URI : mongodb://appz-logcollectordb-2-9:27017/graylog  
+  GRAYLOG_ELASTICSEARCH_HOSTS : http://appz-logcollectores-2-9:9200/
+  GRAYLOG_ELASTICSEARCH_DISCOVERY_ENABLED : false
+  GRAYLOG_ROOT_PASSWORD_SHA2 : aee6e0898de4b1316dabd00451ebeb3ec9e7fd9c03520497eff2b0a29bfdc776
