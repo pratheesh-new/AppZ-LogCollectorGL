@@ -4,25 +4,25 @@ app:
   notify: pprasannan@cloudbourne.co
 build:
   version: 2.9
-  env: DEV
+  env: QA
   build_file: none
   output_files: output/*.zip
-  image_template: graylog-3.0
+  image_template: graylog-3.1
   image_name: nutanix/log-collector-gl
 deploy:
-  context: nutanix/DEV
+  context: nutanix/QA
   replicas: 1
   port:
   - 9000
   - 12201
 volumes:
-- claim: graylog-data
+- claim: graylog-data-qa
   mount: /usr/share/graylog/data/journal
   name: data
 monitor:
   notify: pprasannan@cloudbourne.co      
 properties:
-  revision : 21
+  revision : 22
   GRAYLOG_MONGODB_URI : mongodb://appz-logcollectordb-2-9:27017/graylog  
   GRAYLOG_ELASTICSEARCH_HOSTS : http://appz-logcollectores-2-9:9200/
   GRAYLOG_ELASTICSEARCH_DISCOVERY_ENABLED : false
